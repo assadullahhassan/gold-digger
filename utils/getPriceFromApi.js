@@ -4,6 +4,7 @@ const apiKey = "goldapi-3f8ab98911363ed96ee6a0f47ac39b81-io";
 const symbol = "XAU";
 const curr = "GBP";
 const date = "";
+let currentPrice = null;
 
 const options = {
     hostname: 'www.goldapi.io',
@@ -14,25 +15,29 @@ const options = {
         'Content-Type': 'application/json'
     }
 };
-export async function getPriceFromApi(symbol, curr, date) {
+export async function getPriceFromApi() {
 
-    const req = https.request(options, (res) => {
-        let data = '';
+   return new Promise((resolve, reject) => {
+        const req = https.request(options, (res) => {
+            let data = '';
 
-        res.on('data', (chunk) => {
-            data += chunk;
+            res.on('data', (chunk) => {
+                data += chunk;
+            });
+
+            res.on('end', () => {
+                const parsedData = JSON.parse(data);
+                currentPrice = parsedData.price;
+                console.log('current price1', currentPrice);
+                resolve(currentPrice); 
+            });
         });
 
-        res.on('end', async () => {
-           const parsedData = await JSON.parse(data);
-            console.log('current price', parsedData.price);
-            return parsedData.price;
+        req.on('error', (error) => {
+            console.error('Error:', error.message);
+            reject(error);
         });
-    });
 
-    req.on('error', (error) => {
-        console.error('Error:', error.message);
+        req.end();
     });
-
-    req.end();
 }

@@ -12,14 +12,14 @@ const publicDir = path.join(process.cwd(), 'public');
 
 
 const server = http.createServer(async (req, res) => {
+    console.log('Received request:', req.method, req.url);
     if (req.url === '/api') {
         if (req.method === 'GET') {
            const price = await getPriceFromApi()
            if (price) {
-            console.log('current price', price);
+            console.log('current price2', price);
             res.setHeader('Content-Type', 'application/json');
-            // res.end(JSON.stringify({ price }));
-            res.JSON({ price });
+            res.end(JSON.stringify({ price }));
            }
            
         }
