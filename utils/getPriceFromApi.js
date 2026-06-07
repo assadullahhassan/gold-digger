@@ -1,6 +1,7 @@
 import https from 'node:https';
+import 'dotenv/config';
 
-const apiKey = "goldapi-3f8ab98911363ed96ee6a0f47ac39b81-io";
+const apiKey = process.env.GOLDAPI;
 const symbol = "XAU";
 const curr = "GBP";
 const date = "";
@@ -15,7 +16,8 @@ const options = {
         'Content-Type': 'application/json'
     }
 };
-export async function getPriceFromApi() {
+
+async function getPriceFromApi() {
 
    return new Promise((resolve, reject) => {
         const req = https.request(options, (res) => {
@@ -40,4 +42,14 @@ export async function getPriceFromApi() {
 
         req.end();
     });
+}
+
+export async function getCurrentPrice() {
+     try {
+        const price = await getPriceFromApi();
+        return price;
+    } catch (error) {
+        console.error('Error fetching price:', error);
+        return null;
+    }
 }

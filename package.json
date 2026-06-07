@@ -10,5 +10,8 @@
     "dev": "nodemon server.js"
   },
   "author": "Assadullah Hassan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
 }

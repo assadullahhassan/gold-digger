@@ -13,18 +13,26 @@ export async function serveStatic(req, res, publicDir) {
     }
 
     // Check if file exists
-    fs.access(filePath, fs.constants.F_OK, (err) => {
+
+      fs.access(filePath, fs.constants.F_OK, (err) => {
+        // if (err) {
+        //     res.statusCode = 404;
+        //     res.end('File not found');
+        //     return;
+        // }
+
         if (err) {
-            res.statusCode = 404;
-            res.end('File not found');
-            return;
+            const content = fs.readFileSync(path.join(publicDir, '404.html'));
+            res.setHeader('Content-Type', 'text/html');
+            res.end(content);
+        } else {
+            // Determine MIME type
+            let contentType = getContentType(filePath);
+            // Read and send the file
+            res.setHeader('Content-Type', contentType);
+            fs.createReadStream(filePath).pipe(res);
         }
 
-        // Determine MIME type
-        const contentType = getContentType(filePath);
-
-        // Read and send the file
-        res.setHeader('Content-Type', contentType);
-        fs.createReadStream(filePath).pipe(res);
     });
+    
 }
