@@ -1,7 +1,7 @@
 import https from 'node:https';
 import 'dotenv/config';
 
-const apiKey = process.env.GOLDAPI;
+const apiKey = process.env.GOLDAPI_KEY;
 const symbol = "XAU";
 const curr = "GBP";
 const date = "";

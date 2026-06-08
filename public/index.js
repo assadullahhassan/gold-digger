@@ -52,7 +52,10 @@ investmentForm.addEventListener('submit', async (e) => {
     document.getElementById('investment-summary').textContent = summaryText;
 
     try {
-        const response = await fetch('/api/invest', {
+        if(currentPrice === null || currentPrice === undefined) {
+            throw new Error('Failed to submit investment');
+        } else {
+            const response = await fetch('/api/invest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,6 +73,8 @@ investmentForm.addEventListener('submit', async (e) => {
         }
 
         outputDialog.showModal();
+        }
+        
     } catch (error) {
         console.error('Error submitting investment:', error);
     }

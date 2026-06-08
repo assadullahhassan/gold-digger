@@ -9,9 +9,6 @@ import { addInvestmentLog } from './utils/addNewLog.js';
 import { pdfEventEmitter } from './events/pdfEvents.js';
 import { emailEventEmitter } from './events/emailEvents.js';
 
-// import dotenv from 'dotenv';
-
-// dotenv.config();
 
 const PORT = 3000;
 const publicDir = path.join(import.meta.dirname, 'public');
@@ -29,8 +26,11 @@ const server = http.createServer(async (req, res) => {
             res.setHeader('Connection', 'keep-alive');
 
            const intervalId = setInterval(async () => {
-                const price = await getCurrentPrice()
+                let price = await getCurrentPrice()
                 // const price = 1000
+                if (price === undefined) {
+                    price = 2139.52
+                }
                 console.log('current price2', price);
 
                 res.write('data: ' + JSON.stringify({ price: price }) + '\n\n');
