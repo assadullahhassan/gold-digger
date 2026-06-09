@@ -2,9 +2,11 @@
 
 GoldDigger is a backend Node.js application that simulates a live gold investment platform. Built using native Node.js core modules, this project demonstrates foundational server-side concepts including static file streaming, custom routing, data persistence, and real-time streaming updates via Server-Sent Events (SSE).
 
-![GoldDigger Interface Preview](https://drive.google.com/drive/folders/13e4i0lGZ4Su2dw75lSjzu7ZL5RLeRZWk?usp=sharing)
+[GoldDigger Interface Preview](https://drive.google.com/drive/folders/13e4i0lGZ4Su2dw75lSjzu7ZL5RLeRZWk?usp=sharing)
 
-![GoldDigger Live Demo](https://gold-digger-cb9e.onrender.com)
+[GoldDigger Live Demo](https://gold-digger-cb9e.onrender.com)
+
+
 
 ---
 
